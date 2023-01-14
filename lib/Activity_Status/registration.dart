@@ -1,9 +1,14 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:scholarship_vjti/widgets/myAppBar.dart';
 import 'package:scholarship_vjti/widgets/textField.dart';
 import '../widgets/myButton.dart';
 import '../widgets/myDropDown.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'History/H_main.dart';
+
 
 class first extends StatefulWidget {
   const first({super.key});
@@ -40,23 +45,37 @@ class _firststate extends State<first> {
 
   @override
   TextEditingController name = TextEditingController();
-   TextEditingController income = TextEditingController();
-    TextEditingController cast = TextEditingController();
+  TextEditingController income = TextEditingController();
+  TextEditingController cast = TextEditingController();
   TextEditingController phone = TextEditingController();
   TextEditingController registration = TextEditingController();
   TextEditingController Email = TextEditingController();
   TextEditingController drop = TextEditingController();
-    TextEditingController drop1 = TextEditingController();
-
+  TextEditingController drop1 = TextEditingController();
+  late Map<String, dynamic> studtoadd;
   final _formKey = GlobalKey<FormState>();
+  CollectionReference ref = FirebaseFirestore.instance.collection('Users');
+  addStudent() {
+    studtoadd = {
+      'Name': name.text,
+      'Email': Email.text,
+      'Mobile_No': phone.text,
+      'Department': drop.text,
+      'Branch': drop1.text,
+      'Income': income.text,
+      'Registration': registration.text,
+    };
 
-  // final CollectionReference collectionReference =
-  //     FirebaseFirestore.instance.collection("Users");
+    ref
+        .doc(registration.text)
+        .set(studtoadd)
+        .whenComplete(() => print("added"));
+  }
 
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: MyAppBar(title: "Registration"),
+        appBar: MyAppBar(title: "Registration",),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: FadeInDownBig(
@@ -127,9 +146,6 @@ class _firststate extends State<first> {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Enter registration ID';
-                            } else if (int.parse(value) > 100 ||
-                                int.parse(value) < 9) {
-                              return 'Enter valid registration ID';
                             }
                           },
                         ),
@@ -137,107 +153,93 @@ class _firststate extends State<first> {
                           height: 20,
                         ),
                         myTextField(
-                          controller: Email,
-                          hintTxt: "Enter your email ID",
-                          labelTxt: "Email ID",
-                          myIcon: Icon(Icons.email),
-                          textInputType: TextInputType.text,
+                          controller: income,
+                          hintTxt: "Enter your Income ",
+                          labelTxt: "Income",
+                          myIcon: Icon(Icons.money),
+                          textInputType: TextInputType.number,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Enter your emaail ID';
+                              return 'Enter your Income';
                             }
                           },
                         ),
                         SizedBox(
                           height: 20,
                         ),
-
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
-                                  myDropDown(
-                            controller: drop,
-                            items: department,
-                            title: 'Department',
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          myDropDown(
-                            controller: drop1,
-                            items: branch,
-                            title: 'Branch',
-                          ),
+                              myDropDown(
+                                controller: drop,
+                                items: department,
+                                title: 'Department',
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              myDropDown(
+                                controller: drop1,
+                                items: branch,
+                                title: 'Branch',
+                              ),
                             ],
                           ),
-                        ), 
-                      
+                        ),
+
                         SizedBox(
                           height: 20,
                         ),
-                        myTextField(
-                          controller: cast,
-                          hintTxt: "Enter your Cast",
-                          labelTxt: "Cast",
-                          myIcon: Icon(Icons.cast),
-                          textInputType: TextInputType.text,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Enter your cast';
-                            }
-                          },
-                        ),
-                         SizedBox(
-                        height: 30,
-                      ),
-                        myButton(
-                            height: 50,
-                            path: "/Second_Screen",
-                            radius: 20,
-                            text: "Submit",
-                            width: 174,
-                            backColor: Color.fromARGB(255, 80, 108, 202),
-                            textColor: Colors.white),
-                        // ElevatedButton(
-                        //   style: ElevatedButton.styleFrom(
-                        //     primary: Color.fromARGB(255, 108, 159, 200),
-                        //     onPrimary: Colors.white,
-                        //   ),
-                        //   onPressed: () async {
-                        //     // if (_formKey.currentState!.validate()) {
-                        //     //   ScaffoldMessenger.of(context).showSnackBar(
-                        //     //     const SnackBar(
-                        //     //         content: Text('Processing Data')),
-                        //     //   );
-                        //     //   collectionReference.doc().set({
-                        //     //     'Name': name.text,
-                        //     //     'Mobile No': phone.text,
-                        //     //     'Age': int.parse(age.text),
-                        //     //     "Photo": profile_photo.text,
-                        //     //     'Department': drop.text
-                        //     //   });
-                        //     // } else {
-                        //     //   ScaffoldMessenger.of(context).showSnackBar(
-                        //     //     const SnackBar(
-                        //     //         content: Text('Add all required field')),
-                        //     //   );
-                        //     // }
+                       
+                      
+                        MaterialButton(
+                          height: 50,
+                          minWidth: double.infinity,
+                          onPressed: () async {
+                               Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => H_main()),
+                            );
+                            // addStudent();
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   const SnackBar(content: Text('Submitted Data')),
+                            // );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(builder: (context) => H_main()),
+                            // );
 
-                        //     // ScaffoldMessenger.of(context).showSnackBar(
-                        //     //   const SnackBar(content: Text('Submitted Data')),
-                        //     // );
-                        //   },
-                        //   child: Text(
-                        //     'Submit',
-                        //     style: TextStyle(fontSize: 15),
-                        //   ),
-                        // ),
+                            // if (_formKey.currentState!.validate()) {
+                            //   ScaffoldMessenger.of(context).showSnackBar(
+                            //     const SnackBar(
+                            //         content: Text('Processing Data')),
+                            //   );
+                            // } else {
+                            //   print("Not");
+                            //   ScaffoldMessenger.of(context).showSnackBar(
+                            //     const SnackBar(
+                            //         content: Text('Not Submitted Data')),
+                            //   );
+                            // }
+                          },
+                          color:Color.fromARGB(255, 97, 49, 218),
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(color:Color.fromARGB(255, 97, 49, 218),),
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Text(
+                            "Submit",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                   SizedBox(height: 20),
-                  
                   SizedBox(
                     height: 20,
                   )

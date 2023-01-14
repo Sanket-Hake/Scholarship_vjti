@@ -3,9 +3,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 List<String> Images = [
-  "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8YWdyaWN1bHR1cmV8ZW58MHx8MHx8&w=1000&q=80",
-  "https://image.shutterstock.com/image-photo/tractor-spraying-pesticides-on-soybean-260nw-653708227.jpg",
-  "https://media.istockphoto.com/photos/farmer-standing-on-corn-field-against-sky-picture-id1316321081?b=1&k=20&m=1316321081&s=170667a&w=0&h=29-KGGEIq2NcDc5W75oOrk9s4HQCEafbvBZ922jK0eM="
+  "assets/images/1.jpg" ,
+   "assets/images/2.png" ,
+    "assets/images/3.jpeg" ,
+      "assets/images/5_1.jpg" ,
 ];
 
 class slider extends StatefulWidget {
@@ -45,11 +46,11 @@ class _sliderState extends State<slider> {
                       borderRadius: BorderRadius.circular(20)),
                   elevation: 40,
                   shadowColor: Color.fromARGB(0, 216, 55, 55),
-                  // child: ClipRRect(
-                  //   borderRadius: BorderRadius.circular(20),
-                  //   child: Image(
-                  //       image: NetworkImage(Images[Index]), fit: BoxFit.cover),
-                  // ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image(
+                        image: AssetImage(Images[Index]), fit: BoxFit.cover),
+                  ),
                 ),
               );
               ;

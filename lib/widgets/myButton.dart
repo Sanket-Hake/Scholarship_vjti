@@ -8,6 +8,7 @@ class myButton extends StatelessWidget {
   final double radius;
   final String path;
   final String text;
+
   const myButton(
       {super.key,
       required this.radius,
@@ -16,16 +17,16 @@ class myButton extends StatelessWidget {
       required this.width,
       required this.text,
       required this.textColor,
-      required this.backColor});
+      required this.backColor, });
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
       height: height,
       minWidth: width,
-      onPressed: () {
-        Navigator.pushNamed(context, path);
-      },
+      onPressed:(){
+      
+      } , 
       color: backColor,
       shape: RoundedRectangleBorder(
         side: const BorderSide(color: Colors.blue),
