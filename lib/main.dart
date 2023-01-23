@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:scholarship_vjti/AllSchemes/my_Schemes.dart';
-import 'package:scholarship_vjti/Authentication/login.dart';
-import 'package:scholarship_vjti/Authentication/registartion.dart';
-import 'package:scholarship_vjti/Home/home_main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:scholarship_vjti/Activity_Status/registration.dart';
+import 'package:scholarship_vjti/AllSchemes/eligible_Schemes.dart';
+import 'package:scholarship_vjti/Home/home_main.dart';
+import 'package:scholarship_vjti/Payment_history/pHistory.dart';
 
-import 'Activity_Status/registration.dart';
-import 'Home/fetch.dart';
-import 'Notice/N_main.dart';
+
+import 'Authentication/registartion.dart';
 
 
 Future main() async{
@@ -37,12 +36,9 @@ class MyApp extends StatelessWidget {
         '/': (context) => HomeMain(),
         "/register" :(context) => RegisterPage() ,
         "/first": (context) => first(),
-        '/fetch': (context) => fetch(),
+        '/paymentHistory': (context) => paymentHistory(),
         "/MySchemes": (context) => MySchemes(),
-        // "/register": (context) => registration_page(),
-        // "/Shop_Registartion": (context) => Shop_Registration(),
-        // "/Buy_home": (context) => const Buy_home(),
-        // "/Add_Product": (context) => const Add_Product()
+     
       },
     );
   }

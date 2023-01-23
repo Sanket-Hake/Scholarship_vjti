@@ -15,7 +15,7 @@ class Common extends StatefulWidget {
 
 class _CommonState extends State<Common> {
   final _formKey = GlobalKey<FormState>();
-    TextEditingController regID = TextEditingController();
+  TextEditingController regID = TextEditingController();
   TextEditingController SchemeName = TextEditingController();
   TextEditingController sid = TextEditingController();
   TextEditingController fyear = TextEditingController();
@@ -67,7 +67,7 @@ class _CommonState extends State<Common> {
                   controller: sid,
                   hintTxt: "Enter Scholarship ID",
                   labelTxt: "Scholarship no.",
-                  myIcon: Icon(Icons.phone),
+                  myIcon: Icon(Icons.numbers),
                   textInputType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -85,8 +85,8 @@ class _CommonState extends State<Common> {
                   controller: SchemeName,
                   hintTxt: "Enter Scheme Name",
                   labelTxt: " Scheme Name",
-                  myIcon: Icon(Icons.numbers),
-                  textInputType: TextInputType.number,
+                  myIcon: Icon(Icons.document_scanner),
+                  textInputType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Enter Scheme name';
@@ -100,8 +100,8 @@ class _CommonState extends State<Common> {
                   controller: fyear,
                   hintTxt: "Enter financial year",
                   labelTxt: " financial year",
-                  myIcon: Icon(Icons.numbers),
-                  textInputType: TextInputType.number,
+                  myIcon: Icon(Icons.calendar_month),
+                  textInputType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Enter financial year';

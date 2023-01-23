@@ -11,6 +11,7 @@ class schemes extends StatelessWidget {
     Key? key,
     required this.type,
   }) : super(key: key);
+
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   @override
@@ -22,22 +23,22 @@ class schemes extends StatelessWidget {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           }
-
           final Value = (snapshot.data! as QuerySnapshot).docs;
-          return FadeInDown(delay: Duration(milliseconds: 800), child: ritish()
-              // : Center(
-              //     child: Text(
-              //       "Products Not Available",
-              //       style: TextStyle(fontSize: 25, color: Colors.green),
-              //     ),
-              //   ),
-              );
+          return FadeInDown(
+            delay: Duration(milliseconds: 800),
+            child: listview(),
+          );
         },
       ),
     );
   }
 
-  Widget ritish() {
+  Widget listview() {
+    Future<void> _launchUrl(_url) async {
+      if (!await launchUrl(_url)) {
+        throw 'Could not launch $_url';
+      }
+    }
     return StreamBuilder(
       stream: db.collection("mySchemes").snapshots(),
       builder: (context, snapshot) {
@@ -51,24 +52,16 @@ class schemes extends StatelessWidget {
               ? ListView.builder(
                   itemCount: Value.length,
                   itemBuilder: (BuildContext context, int index) {
-                    // print(Value[index]["category"]) ;
-                    _launchURLBrowser() async {
-                      var url = Uri.parse(Value[index]["link"]);
-                      if (await canLaunchUrl(url)) {
-                        await launchUrl(url);
-                      } else {
-                        throw 'Could not launch $url';
-                      }
-                    }
-
                     if (Value[index]["type"] == type) {
-                      return Stack(
-                        children: <Widget>[
-                          InkWell(
-                            onTap: () {
-                              _launchURLBrowser();
-                            },
-                            child: Container(
+                      return InkWell(
+                        onTap: () {
+                          Uri _url = Uri.parse(
+                              'https://console.firebase.google.com/project/sanket-9dd56/firestore/data/~2FmySchemes~2F91kOfEDEWdbmlGgAEeDl');
+                          _launchUrl(_url);
+                        },
+                        child: Stack(
+                          children: <Widget>[
+                            Container(
                               margin:
                                   EdgeInsets.only(left: 16, right: 16, top: 16),
                               decoration: BoxDecoration(
@@ -78,56 +71,22 @@ class schemes extends StatelessWidget {
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(16),
                                   )),
-                              child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Container(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          SizedBox(
-                                            height: 6,
-                                          ),
-                                          RichText(
-                                            text: TextSpan(
-                                                text: Value[index]["name"],
-                                                style: CustomTextStyle
-                                                    .textFormFieldSemiBold
-                                                    .copyWith(fontSize: 20),
-                                                recognizer:
-                                                    new TapGestureRecognizer()
-                                                      ..onTap = (() {
-                                                        launchUrl(Uri.parse(
-                                                            Value[index]
-                                                                ["link"]));
-                                                      })),
-                                          ),
-                                          // Container(
-                                          //   padding: EdgeInsets.only(
-                                          //       right: 8, top: 4),
-                                          //   child:
-                                          // ),
-                                          SizedBox(
-                                            height: 6,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    flex: 100,
-                                  )
-                                ],
+                              child: Text( 
+                                Value[index]["name"],
+                               style: TextStyle(fontSize: 20 , fontWeight: FontWeight.bold),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
+                      
                     } else {
                       return Container();
                     }
-                  })
+                
+                  }
+                  
+                  )
               : Center(
                   child: Text(
                     "Products Not Available",

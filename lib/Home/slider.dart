@@ -61,9 +61,7 @@ class _sliderState extends State<slider> {
           height: 10,
         ),
         BuildIndicator(activeIndex),
-        SizedBox(
-          height: 15,
-        ),
+       
       ],
     );
   }

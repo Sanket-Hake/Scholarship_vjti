@@ -16,13 +16,11 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: Container(
         padding: EdgeInsets.only(right: 1, left: 24),
-        child: Center(
-          child: Text(
-            title!,
-            style: TextStyle(
-              fontSize: 23,
-              fontWeight: FontWeight.w500,
-            ),
+        child: Text(
+          title!,
+          style: TextStyle(
+            fontSize: 23,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),

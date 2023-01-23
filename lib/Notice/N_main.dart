@@ -15,10 +15,13 @@ class _NMainState extends State<NMain> {
   @override
   FirebaseFirestore db = FirebaseFirestore.instance;
   Widget build(BuildContext context) {
-    return Scaffold(appBar: MyAppBar(title: "Notice Board"), body: sanika());
+    return Scaffold(appBar: MyAppBar(title: "Notice Board"), body: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: notices(),
+    ));
   }
 
-  Widget sanika() {
+  Widget notices() {
     return StreamBuilder(
       stream: db.collection("Notification").snapshots(),
       builder: (context, snapshot) {
@@ -36,54 +39,20 @@ class _NMainState extends State<NMain> {
                       children: <Widget>[
                         InkWell(
                           onTap: () {},
-                          child: Container(
-                            margin:
-                                EdgeInsets.only(left: 16, right: 16, top: 16),
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 228, 220, 220),
-                                border:
-                                    Border.all(color: Colors.white, width: 3),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(16),
-                                )),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Container(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          height: 6,
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                            bottom: 5.0,
-                                            right: 4.0,
-                                          ),
-                                          child: ListTile(
-                                            tileColor: Color.fromARGB(255, 251, 247, 247),
-                                            shape: RoundedRectangleBorder(
-                                              side: BorderSide(width: 2),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            title:
-                                                Text(Value[index]["message"] ,style: TextStyle(color: Colors.red , fontWeight: FontWeight.bold),),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 6,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  flex: 100,
-                                )
-                              ],
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10  , right: 10 , top: 5 , bottom: 5),
+                            child: Container(
+                              
+                              child:index < Value.length ? ListTile(
+                                              tileColor: Color.fromARGB(255, 239, 236, 236),
+                                              shape: RoundedRectangleBorder(
+                                                
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              title:
+                                                  Text(Value[index]["message"] ,style: TextStyle(color: Colors.red , fontWeight: FontWeight.bold),),
+                                            ): Container(),
                             ),
                           ),
                         ),
@@ -92,7 +61,7 @@ class _NMainState extends State<NMain> {
                   })
               : Center(
                   child: Text(
-                    "Data Not found",
+                    "No any notices",
                     style: TextStyle(fontSize: 25, color: Colors.green),
                   ),
                 ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +10,6 @@ import '../widgets/myDropDown.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'History/H_main.dart';
-
 
 class first extends StatefulWidget {
   const first({super.key});
@@ -75,7 +76,9 @@ class _firststate extends State<first> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: MyAppBar(title: "Registration",),
+        appBar: MyAppBar(
+          title: "Registration",
+        ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
           child: FadeInDownBig(
@@ -191,41 +194,46 @@ class _firststate extends State<first> {
                         SizedBox(
                           height: 20,
                         ),
-                       
-                      
+
                         MaterialButton(
                           height: 50,
                           minWidth: double.infinity,
                           onPressed: () async {
-                               Navigator.push(
+                            if (_formKey.currentState!.validate()) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Processing Data')),
+                              );
+                            } else {
+                              print("Not");
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Not Submitted Data')),
+                              );
+                              
+                           
+                            }
+                            addStudent();
+                             ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Submitted Data')),
+                            );
+
+                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => H_main()),
                             );
-                            // addStudent();
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   const SnackBar(content: Text('Submitted Data')),
-                            // );
+                           
+
                             // Navigator.push(
                             //   context,
                             //   MaterialPageRoute(builder: (context) => H_main()),
                             // );
-
-                            // if (_formKey.currentState!.validate()) {
-                            //   ScaffoldMessenger.of(context).showSnackBar(
-                            //     const SnackBar(
-                            //         content: Text('Processing Data')),
-                            //   );
-                            // } else {
-                            //   print("Not");
-                            //   ScaffoldMessenger.of(context).showSnackBar(
-                            //     const SnackBar(
-                            //         content: Text('Not Submitted Data')),
-                            //   );
-                            // }
                           },
-                          color:Color.fromARGB(255, 97, 49, 218),
+                          color: Color.fromARGB(255, 97, 49, 218),
                           shape: RoundedRectangleBorder(
-                            side: const BorderSide(color:Color.fromARGB(255, 97, 49, 218),),
+                            side: const BorderSide(
+                              color: Color.fromARGB(255, 97, 49, 218),
+                            ),
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Text(
