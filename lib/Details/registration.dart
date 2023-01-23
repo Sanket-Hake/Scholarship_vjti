@@ -9,8 +9,6 @@ import '../widgets/myButton.dart';
 import '../widgets/myDropDown.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'History/H_main.dart';
-
 class first extends StatefulWidget {
   const first({super.key});
 
@@ -89,20 +87,6 @@ class _firststate extends State<first> {
                     key: _formKey,
                     child: Column(
                       children: <Widget>[
-                        // ClipRect(
-                        //   child: Container(
-                        //     width: 140,
-                        //     height: 140,
-                        //     decoration: BoxDecoration(
-                        //       shape: BoxShape.circle,
-                        //       color: Colors.white,
-                        //       image: DecorationImage(
-                        //           image: NetworkImage(
-                        //               "https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg"),
-                        //           fit: BoxFit.cover),
-                        //     ),
-                        //   ),
-                        // ),
                         SizedBox(
                           height: 20,
                         ),
@@ -190,11 +174,9 @@ class _firststate extends State<first> {
                             ],
                           ),
                         ),
-
                         SizedBox(
                           height: 20,
                         ),
-
                         MaterialButton(
                           height: 50,
                           minWidth: double.infinity,
@@ -210,24 +192,11 @@ class _firststate extends State<first> {
                                 const SnackBar(
                                     content: Text('Not Submitted Data')),
                               );
-                              
-                           
                             }
                             addStudent();
-                             ScaffoldMessenger.of(context).showSnackBar(
+                            ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Submitted Data')),
                             );
-
-                             Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => H_main()),
-                            );
-                           
-
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(builder: (context) => H_main()),
-                            // );
                           },
                           color: Color.fromARGB(255, 97, 49, 218),
                           shape: RoundedRectangleBorder(

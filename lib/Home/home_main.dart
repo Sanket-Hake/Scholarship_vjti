@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:marquee/marquee.dart';
-import 'package:scholarship_vjti/Activity_Status/registration.dart';
+import 'package:scholarship_vjti/Details/registration.dart';
 import 'package:scholarship_vjti/Home/slider.dart';
 import 'package:scholarship_vjti/Notice/N_main.dart';
 import '../AllSchemes/tab.dart';

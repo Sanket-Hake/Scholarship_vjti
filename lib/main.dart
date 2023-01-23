@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:scholarship_vjti/Activity_Status/registration.dart';
+import 'package:scholarship_vjti/Details/registration.dart';
 import 'package:scholarship_vjti/AllSchemes/eligible_Schemes.dart';
 import 'package:scholarship_vjti/Home/home_main.dart';
 import 'package:scholarship_vjti/Payment_history/pHistory.dart';
