@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+
 class myDropDown extends StatefulWidget {
-  List items ; 
-  String title ; 
-  myDropDown({
-    super.key,
-    required this.controller,
-    required this.items , 
-    required this.title 
-  
-  });
+  List items;
+  String title;
+  myDropDown(
+      {super.key,
+      required this.controller,
+      required this.items,
+      required this.title});
   late TextEditingController controller;
   @override
   State<myDropDown> createState() => _myDropDownState(controller: controller);
 }
+
 class _myDropDownState extends State<myDropDown> {
   _myDropDownState({
     required this.controller,
   });
   late TextEditingController controller;
   @override
-
   String? selectedVal;
   Widget build(BuildContext context) {
     return DropdownButton2(
+      isExpanded: true,
       hint: Text(
         widget.title,
         style: TextStyle(

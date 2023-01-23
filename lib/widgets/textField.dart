@@ -22,8 +22,8 @@ class myTextField extends StatelessWidget {
       height: 55,
       width: 380,
       child: TextFormField(
+        cursorColor: Color.fromARGB(255, 97, 49, 218),
         keyboardType: textInputType,
-       
         controller: controller,
         style: const TextStyle(fontSize: 15),
         validator: validator,
@@ -32,8 +32,8 @@ class myTextField extends StatelessWidget {
             labelStyle: const TextStyle(color: Colors.black),
             focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide:
-                    const BorderSide(color: Colors.blueAccent, width: 2)),
+                borderSide: const BorderSide(
+                    color: Color.fromARGB(255, 97, 49, 218), width: 2)),
             prefixIcon: myIcon,
             hintText: hintTxt,
             contentPadding: const EdgeInsets.symmetric(horizontal: 20)),
