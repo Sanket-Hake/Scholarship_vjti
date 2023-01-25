@@ -21,19 +21,19 @@
 //   TextEditingController fyear = TextEditingController();
 //   TextEditingController caste = TextEditingController();
 //   late Map<String, dynamic> studentToAdd;
-//   CollectionReference collectionReference1 =
-//       FirebaseFirestore.instance.collection('Users');
-//   addStudent() {
-//     studentToAdd = {
-//       "SchemeName": SchemeName.text,
-//       "sid": sid.text,
-//       "caste": caste.text,
-//       "fyear": fyear.text,
-//     };
+  // CollectionReference collectionReference1 =
+  //     FirebaseFirestore.instance.collection('Users');
+  // addStudent() {
+  //   studentToAdd = {
+  //     "SchemeName": SchemeName.text,
+  //     "sid": sid.text,
+  //     "caste": caste.text,
+  //     "fyear": fyear.text,
+  //   };
 
-//     collectionReference1.doc(regID.text).collection('scholarship')
-//       ..add((studentToAdd)).whenComplete(() => print("added"));
-//   }
+    // collectionReference1.doc(regID.text).collection('scholarship')
+    //   ..add((studentToAdd)).whenComplete(() => print("added"));
+  // }
 
 //   @override
 //   Widget build(BuildContext context) {

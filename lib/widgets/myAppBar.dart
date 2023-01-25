@@ -19,7 +19,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Text(
           title!,
           style: TextStyle(
-            fontSize: 23,
+            fontSize: 20,
             fontWeight: FontWeight.w500,
           ),
         ),

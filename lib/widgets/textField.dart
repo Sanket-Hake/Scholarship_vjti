@@ -18,10 +18,7 @@ class myTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 55,
-      width: 380,
-      child: TextFormField(
+    return TextFormField(
         cursorColor: Color.fromARGB(255, 97, 49, 218),
         keyboardType: textInputType,
         controller: controller,
@@ -34,10 +31,28 @@ class myTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 borderSide: const BorderSide(
                     color: Color.fromARGB(255, 97, 49, 218), width: 2)),
-            prefixIcon: myIcon,
+            prefixIcon: myIcon , 
             hintText: hintTxt,
             contentPadding: const EdgeInsets.symmetric(horizontal: 20)),
-      ),
-    );
+      );
   }
 }
+
+
+//  Padding(
+//                 padding: const EdgeInsets.all(8.0),
+//                 child: ClipRect(
+//                               child: Container(
+//                                 width: 20,
+//                                 height:20,
+//                                 decoration: BoxDecoration(
+//                                   shape: BoxShape.circle,
+//                                   color: Colors.white,
+//                                   image: DecorationImage(
+//                                     image: AssetImage("assets/images/history.png"), 
+//                                     fit: BoxFit.contain,
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//               ),

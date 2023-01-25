@@ -1,5 +1,3 @@
-
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -50,6 +48,9 @@ class _paymentHistorytate extends State<paymentHistory> {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
+                  SizedBox(
+                    height: 15,
+                  ),
                   myText("Name : Sanket Hake"),
                   SizedBox(
                     height: 15,
@@ -64,6 +65,9 @@ class _paymentHistorytate extends State<paymentHistory> {
                   ),
                   myText(
                       "Scheme Name : Post Matric Scholarship for VJNT Student"),
+                  SizedBox(
+                    height: 15,
+                  ),
                 ],
               ),
             ),
@@ -71,44 +75,62 @@ class _paymentHistorytate extends State<paymentHistory> {
           SizedBox(
             height: 15,
           ),
-          myText("Account Information"),
-          SizedBox(
-            height: 15,
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              "Account Information",
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                  fontSize: 20),
+            ),
           ),
-          Container(
-            height: 200,
-            child: StreamBuilder(
-            
-                stream: db
-                    .collection("Users")
-                    .doc()
-                    .collection("scholarship")
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  final Value = (snapshot.data! as QuerySnapshot).docs;
-                  return ListView.builder(
-                     shrinkWrap: true,
-                      itemCount: Value.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Table(
-                          border: TableBorder.all(color: Colors.black),
-                          children: [
-                            TableRow(children: [
-                              Text("Sannke" , style: TextStyle(color: Colors.black , fontSize: 20 , ),),
-                              Text(Value[index]["caste"]),
-                              Text(Value[index]["caste"]),
-                            ]),
-                           
-                          ],
-                        );
-                      });
-                }),
-          )
+          myTable(),
         ],
       ),
+    );
+  }
+
+  Widget myTable() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('fees').snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return Center(child: new Text('Loading...'));
+          default:
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: DataTable(
+                columnSpacing: 10,
+                dataRowHeight: 60,
+                headingRowHeight: 100,
+                horizontalMargin: 10,
+                columns: <DataColumn>[
+                  DataColumn(label: mystyle("Total Fees")),
+                  DataColumn(label: mystyle("Fees Paid by std")),
+                  DataColumn(label: mystyle('1st Installment')),
+                  DataColumn(label: mystyle('2nd Installment')),
+                  DataColumn(label: mystyle('Balance')),
+                ],
+                rows: (snapshot.data! as QuerySnapshot)
+                    .docs
+                    .map((DocumentSnapshot document) {
+                  return DataRow(
+                    cells: <DataCell>[
+                      DataCell(mystyle(document["total"])),
+                      DataCell(mystyle(document["feestu"])),
+                      DataCell(mystyle(document["mahadbt1"])),
+                      DataCell(mystyle(document["mahadbt2"])),
+                      DataCell(mystyle(document["balance"])),
+                    ],
+                  );
+                }).toList(),
+              ),
+            );
+        }
+      },
     );
   }
 
@@ -120,83 +142,17 @@ class _paymentHistorytate extends State<paymentHistory> {
       child: Text(
         txt,
         style: const TextStyle(
-            fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),
+            fontWeight: FontWeight.bold, color: Colors.black, fontSize: 15),
       ),
     );
   }
 
-  List<DataColumn> _createColumns() {
-    return [
-      const DataColumn(
-        label: Text(
-          "Commodity",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-        ),
-      ),
-      const DataColumn(
-        label: SizedBox(
-          width: 90,
-          child: Text(
-            "Arrival (Qts)",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-          ),
-        ),
-      ),
-      const DataColumn(
-        label: Text(
-          "Modal Price\n (Rs./Qtl)",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-        ),
-      ),
-    ];
-  }
-
-  List<DataRow> _createRows() {
-    List<DataRow> rows = [];
-    for (int i = 0; i < list.length; i++) {
-      rows.add(
-        DataRow(
-          cells: [
-            DataCell(
-              Text(
-                list[i],
-                style: TextStyle(color: Colors.black, fontSize: 20),
-              ),
-            ),
-            DataCell(
-              Text(
-                list[i],
-              ),
-            ),
-            DataCell(
-              Text(
-                list[i],
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-    return rows;
-  }
-
-  Widget buildTable() {
-    return Container(
-      width: double.infinity,
-      child: Expanded(
-        flex: 2,
-        child: DataTable(
-          columns: _createColumns(),
-          rows: _createRows(),
-          columnSpacing: 25,
-          dataRowHeight: 40,
-          dataTextStyle: const TextStyle(
-              fontSize: 5, color: Colors.black, fontWeight: FontWeight.w400),
-        ),
-      ),
-    );
+  Widget mystyle(String txt) {
+    return Text(txt,
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15));
   }
 }
+
 
 //  body: sank == false
 //             ? Padding(

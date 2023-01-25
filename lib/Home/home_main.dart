@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:marquee/marquee.dart';
-import 'package:scholarship_vjti/Details/registration.dart';
+import 'package:scholarship_vjti/Details/form2.dart';
 import 'package:scholarship_vjti/Home/slider.dart';
 import 'package:scholarship_vjti/Notice/N_main.dart';
 import '../AllSchemes/tab.dart';
@@ -82,7 +82,7 @@ class _HomeMainState extends State<HomeMain> {
                               flex: 1,
                               child: InkWell(
                                   onTap: () {
-                                    Navigator.pushNamed(context, "/first");
+                                    Navigator.pushNamed(context, "/form1");
                                   },
                                   child: column("assets/images/history.png",
                                       "Registration", context)),
