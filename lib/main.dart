@@ -6,19 +6,31 @@ import 'package:scholarship_vjti/Details/form2.dart';
 import 'package:scholarship_vjti/AllSchemes/eligible_Schemes.dart';
 import 'package:scholarship_vjti/Home/home_main.dart';
 import 'package:scholarship_vjti/Payment_history/pHistory.dart';
-
+import 'package:scholarship_vjti/about/info.dart';
+import 'Authentication/login.dart';
 import 'Authentication/registartion.dart';
 import 'Details/form1.dart';
 import 'No_use/History/dummy.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+FirebaseMessaging messaging = FirebaseMessaging.instance;
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp();
+
+  print("Handling a background message: ${message.messageId}");
+}
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +43,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        // '/': (context) => LoginPage(),
-        '/': (context) => HomeMain(),
+        '/': (context) => LoginPage(),
         "/register": (context) => RegisterPage(),
-        "/form1": (context) => form1(),
+        // "/AboutPage": (context) => AboutPage(),
         '/paymentHistory': (context) => paymentHistory(),
         "/MySchemes": (context) => MySchemes(),
       },

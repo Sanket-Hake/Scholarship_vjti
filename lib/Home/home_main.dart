@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:marquee/marquee.dart';
 import 'package:scholarship_vjti/Details/form2.dart';
 import 'package:scholarship_vjti/Home/slider.dart';
 import 'package:scholarship_vjti/Notice/N_main.dart';
+import 'package:scholarship_vjti/widgets/marque.dart';
+import 'package:scholarship_vjti/widgets/myAppBar.dart';
 import '../AllSchemes/tab.dart';
 import '../Documents/required.dart';
 import 'drawer.dart';
@@ -40,36 +41,19 @@ class _HomeMainState extends State<HomeMain> {
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  height: 20,
-                  child: Marquee(
-                    text: " MAHADBT registration deadline is January 31, 2023",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.red),
-                    scrollAxis: Axis.horizontal,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    blankSpace: 20.0,
-                    velocity: 100.0,
-                    pauseAfterRound: Duration(seconds: 1),
-                    startPadding: 10.0,
-                    accelerationDuration: Duration(seconds: 1),
-                    accelerationCurve: Curves.linear,
-                    decelerationDuration: Duration(milliseconds: 500),
-                    decelerationCurve: Curves.easeOut,
-                  ),
-                ),
+                Marque(),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 slider(),
                 SizedBox(
                   height: 20,
                 ),
                 Card(
-                  color: Color.fromARGB(255, 246, 243, 243),
+                  color: Color.fromARGB(255, 232, 232, 239),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
-                  elevation: 40,
+                  // elevation: 40,
                   child: Column(
                     children: [
                       Padding(
@@ -81,11 +65,17 @@ class _HomeMainState extends State<HomeMain> {
                             Expanded(
                               flex: 1,
                               child: InkWell(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, "/form1");
-                                  },
-                                  child: column("assets/images/history.png",
-                                      "Registration", context)),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => second(),
+                                    ),
+                                  );
+                                },
+                                child: column("assets/images/history.png",
+                                    "Registration", context),
+                              ),
                             ),
                             Expanded(
                               flex: 1,
@@ -173,11 +163,11 @@ class _HomeMainState extends State<HomeMain> {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 15,
-                      ),
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
               ],
             ),

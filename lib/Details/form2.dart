@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:animate_do/animate_do.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:scholarship_vjti/AllSchemes/schemes.dart';
@@ -10,16 +11,36 @@ import 'package:scholarship_vjti/widgets/textField.dart';
 import '../widgets/myButton.dart';
 import '../widgets/myDropDown.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class second extends StatefulWidget {
-  // final String registrationID;
-  // second({super.key,});
-
   @override
   State<second> createState() => _secondState();
 }
 
 class _secondState extends State<second> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    getData();
+    super.initState();
+  }
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  void getData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      registrationID =
+          prefs.getString('registrationID') as TextEditingController;
+    });
+  }
+
+  void _processData() {
+    // Process your data and upload to server
+    _formKey.currentState?.reset();
+  }
+
   final List<String> schemeName = [
     "Rajarshi Chatrapati Shahu Maharaj Shikshan Shulka Shishyavrutti Yoja (EBC)",
     "Dr. Panjabrao Deshmukh Vastigruh Nirvah Bhatta Yojna[DTE]",
@@ -76,19 +97,23 @@ class _secondState extends State<second> {
   final _formKey = GlobalKey<FormState>();
 
   CollectionReference collectionReference1 =
-      FirebaseFirestore.instance.collection('Users');
+      FirebaseFirestore.instance.collection('student');
   addStudent() {
     studentToAdd = {
-    'caste_info': caste_info.text,
-    'income': income,
-    'appliedScheme': appliedScheme.text,
-    'scholarshipID': scholarshipID.text,
-    'financialYear': financialYear.text,
-    'Income': income.text,
+      'caste_info': caste_info.text,
+      'appliedScheme': appliedScheme.text,
+      'scholarshipID': scholarshipID.text,
+      'financialYear': financialYear.text,
+      'Income': income.text,
     };
-    
-    collectionReference1.doc(registrationID.text).collection('scholarship').doc("123")
-      .set(studentToAdd).whenComplete(() => print("added"));
+    print(_auth.currentUser!.uid);
+
+    collectionReference1
+        .doc(_auth.currentUser!.uid)
+        .collection('scholarship')
+        .doc(scholarshipID.text)
+        .set(studentToAdd)
+        .whenComplete(() => print("added"));
   }
 
   Widget build(BuildContext context) {
@@ -106,26 +131,26 @@ class _secondState extends State<second> {
                     SizedBox(
                       height: 20,
                     ),
-                    myTextField(
-                      controller: registrationID,
-                      hintTxt: "Enter College Registration ID",
-                      labelTxt: "Registartion ID",
-                      myIcon: Icon(
-                        Icons.account_circle,
-                        color: Color.fromARGB(255, 97, 49, 218),
-                      ),
-                      textInputType: TextInputType.number,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Enter Registration ID';
-                        } else if (value.length != 9) {
-                          return 'Enter 10 digit registration no.';
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    // myTextField(
+                    //   controller: registrationID,
+                    //   hintTxt: "Enter College Registration ID",
+                    //   labelTxt: "Registartion ID",
+                    //   myIcon: Icon(
+                    //     Icons.account_circle,
+                    //     color: Color.fromARGB(255, 97, 49, 218),
+                    //   ),
+                    //   textInputType: TextInputType.number,
+                    //   validator: (value) {
+                    //     if (value!.isEmpty) {
+                    //       return 'Enter Registration ID';
+                    //     } else if (value.length != 9) {
+                    //       return 'Enter 10 digit registration no.';
+                    //     }
+                    //   },
+                    // ),
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
                     myTextField(
                       controller: caste_info,
                       hintTxt: "Enter Your Caste",
@@ -220,6 +245,7 @@ class _secondState extends State<second> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Submitted Data')),
                   );
+                  _processData();
                 },
                 color: Color.fromARGB(255, 97, 49, 218),
                 shape: RoundedRectangleBorder(

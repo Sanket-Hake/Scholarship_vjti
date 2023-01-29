@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scholarship_vjti/Authentication/registartion.dart';
-import 'package:scholarship_vjti/Home/home_main.dart';
 
+import '../Home/home_main.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -28,15 +31,12 @@ class _LoginPageState extends State<LoginPage> {
             Text(
               "SCHOLAR",
               style: TextStyle(
-                  color: Colors.blue,
+                  color:Color.fromARGB(255, 97, 49, 218),
                   fontSize: 45,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(height: height * 0.1),
             Container(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              // crossAxisAlignment: CrossAxisAlignment.end,
-
               child: Text(
                 "LOGIN HERE",
                 textAlign: TextAlign.left,
@@ -80,10 +80,10 @@ class _LoginPageState extends State<LoginPage> {
             TextButton(
                 style: TextButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 18, horizontal: 80),
-                    backgroundColor: Colors.blue,
+                    backgroundColor:Color.fromARGB(255, 97, 49, 218),
                     textStyle: TextStyle(color: Colors.white),
                     shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(32))),
+                        borderRadius: new BorderRadius.circular(30))),
                 onPressed: () {
                   FirebaseAuth.instance
                       .signInWithEmailAndPassword(
@@ -91,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                       .then((user) => Navigator.push(context,
                           MaterialPageRoute(builder: (context) => HomeMain())))
                       .catchError((e) {
-                    print(e);
+                    Fluttertoast.showToast(msg: "Password is invalid");
                   });
                 },
                 child: Text(
@@ -106,14 +106,27 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const Text('Not Registered Yet?'),
                 TextButton(
+                    
                     onPressed: () {
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
                         return RegisterPage();
                       }));
                     },
-                    child: Text('Register Now!')),
+                    child: Text('Register Now!' ,selectionColor: Color.fromARGB(255, 97, 49, 218),) ),
               ],
+            ) , 
+            Align(
+              alignment:  Alignment.bottomRight,
+              child: TextButton(
+                    onPressed: () {
+                      Timer(Duration(seconds: 0), () {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => HomeMain()));
+                      });
+                    },
+                    child: Text('next'),
+                  ),
             )
           ],
         ),

@@ -40,7 +40,7 @@ class _paymentHistorytate extends State<paymentHistory> {
       child: Column(
         children: [
           Card(
-            color: Color.fromARGB(255, 246, 243, 243),
+            color:Color.fromARGB(255, 232, 232, 239),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
             elevation: 10,

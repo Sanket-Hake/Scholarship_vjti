@@ -95,6 +95,23 @@ class MainDrawer extends StatelessWidget {
             Divider(
               color: Colors.black,
             ),
+
+             InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, "/AboutPage");
+              },
+              child: ListTile(
+                leading: Icon(Icons.account_box_rounded),
+                tileColor: Colors.blue[200],
+                title: Text(
+                  "About",
+                  style: TextStyle(
+                    fontSize: 17,
+                  ),
+                ),
+              ),
+            ),
+           
             InkWell(
               onTap: () {
                 Navigator.pushNamed(context, "/fetch");
