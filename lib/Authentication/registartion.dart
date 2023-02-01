@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scholarship_vjti/Authentication/login.dart';
+import 'package:scholarship_vjti/widgets/sizedbox.dart';
 
 import '../widgets/myDropDown.dart';
 import '../widgets/textField.dart';
@@ -31,6 +32,10 @@ class RegisterPageState extends State<RegisterPage> {
   //department
   TextEditingController branch = TextEditingController();
   //branch
+
+  TextEditingController caste_info = TextEditingController();
+
+  TextEditingController income = TextEditingController();
 
   late Map<String, dynamic> studtoadd;
 
@@ -67,7 +72,7 @@ class RegisterPageState extends State<RegisterPage> {
         .doc(FirebaseUser.uid)
         .set({
           'email': emailID.text,
-          "password" : password.text , 
+          "password": password.text,
           "uid": FirebaseUser.uid,
           'studentName': studentName.text,
           'mobileNo': mobileNo.text,
@@ -123,9 +128,7 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+
                 Form(
                   key: _formKey,
                   child: Column(
@@ -149,9 +152,7 @@ class RegisterPageState extends State<RegisterPage> {
                           return null;
                         },
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      mySizedbox(num1: 0.025),
                       myTextField(
                         controller: mobileNo,
                         hintTxt: "Enter Mobile No. linked with Maha DBT",
@@ -170,9 +171,7 @@ class RegisterPageState extends State<RegisterPage> {
                           return null;
                         },
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      mySizedbox(num1: 0.025),
                       myTextField(
                         controller: registrationID,
                         hintTxt: "Enter College Registration ID",
@@ -190,9 +189,40 @@ class RegisterPageState extends State<RegisterPage> {
                           }
                         },
                       ),
-                      SizedBox(
-                        height: 20,
+                      mySizedbox(num1: 0.025),
+                      myTextField(
+                        controller: caste_info,
+                        hintTxt: "Enter Your Caste",
+                        labelTxt: "Caste",
+                        myIcon: Icon(
+                          Icons.person,
+                          color: Color.fromARGB(255, 97, 49, 218),
+                        ),
+                        textInputType: TextInputType.text,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your caste';
+                          }
+                          return null;
+                        },
                       ),
+                      mySizedbox(num1: 0.025),
+                      myTextField(
+                        controller: income,
+                        hintTxt: "Enter your family income",
+                        labelTxt: "Family Income",
+                        myIcon: Icon(
+                          Icons.currency_rupee,
+                          color: Color.fromARGB(255, 97, 49, 218),
+                        ),
+                        textInputType: TextInputType.phone,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'please Enter your family income';
+                          }
+                        },
+                      ),
+                      mySizedbox(num1: 0.025),
                       myTextField(
                         controller: emailID,
                         hintTxt: "Enter College Email id",
@@ -208,9 +238,7 @@ class RegisterPageState extends State<RegisterPage> {
                           }
                         },
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      mySizedbox(num1: 0.025),
                       myTextField(
                         controller: password,
                         hintTxt: "Enter Password",
@@ -226,17 +254,13 @@ class RegisterPageState extends State<RegisterPage> {
                           }
                         },
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      mySizedbox(num1: 0.025),
                       myDropDown(
                         controller: course,
                         items: department,
                         title: 'Department',
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      mySizedbox(num1: 0.025),
                       myDropDown(
                         controller: branch,
                         items: brachName,
@@ -245,9 +269,7 @@ class RegisterPageState extends State<RegisterPage> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 40,
-                ),
+                mySizedbox(num1: 0.03),
                 MaterialButton(
                   height: 50,
                   minWidth: MediaQuery.of(context).size.width / 2,
@@ -299,15 +321,15 @@ class RegisterPageState extends State<RegisterPage> {
                         fontSize: 18),
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
-                    Timer(Duration(seconds: 0), () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => LoginPage()));
-                    });
-                  },
-                  child: Text('next'),
-                )
+                // TextButton(
+                //   onPressed: () {
+                //     Timer(Duration(seconds: 0), () {
+                //       Navigator.pushReplacement(context,
+                //           MaterialPageRoute(builder: (context) => LoginPage()));
+                //     });
+                //   },
+                //   child: Text('next'),
+                // )
               ],
             ),
           ),

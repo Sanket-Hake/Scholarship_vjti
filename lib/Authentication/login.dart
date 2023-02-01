@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:scholarship_vjti/Authentication/registartion.dart';
-
 import '../Home/home_main.dart';
 
 class LoginPage extends StatefulWidget {
@@ -31,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
             Text(
               "SCHOLAR",
               style: TextStyle(
-                  color:Color.fromARGB(255, 97, 49, 218),
+                  color: Color.fromARGB(255, 97, 49, 218),
                   fontSize: 45,
                   fontWeight: FontWeight.bold),
             ),
@@ -80,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
             TextButton(
                 style: TextButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 18, horizontal: 80),
-                    backgroundColor:Color.fromARGB(255, 97, 49, 218),
+                    backgroundColor: Color.fromARGB(255, 97, 49, 218),
                     textStyle: TextStyle(color: Colors.white),
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30))),
@@ -106,27 +105,29 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const Text('Not Registered Yet?'),
                 TextButton(
-                    
                     onPressed: () {
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
                         return RegisterPage();
                       }));
                     },
-                    child: Text('Register Now!' ,selectionColor: Color.fromARGB(255, 97, 49, 218),) ),
+                    child: Text(
+                      'Register Now!',
+                      selectionColor: Color.fromARGB(255, 97, 49, 218),
+                    )),
               ],
-            ) , 
+            ),
             Align(
-              alignment:  Alignment.bottomRight,
+              alignment: Alignment.bottomRight,
               child: TextButton(
-                    onPressed: () {
-                      Timer(Duration(seconds: 0), () {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => HomeMain()));
-                      });
-                    },
-                    child: Text('next'),
-                  ),
+                onPressed: () {
+                  Timer(Duration(seconds: 0), () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => HomeMain()));
+                  });
+                },
+                child: Text('next'),
+              ),
             )
           ],
         ),

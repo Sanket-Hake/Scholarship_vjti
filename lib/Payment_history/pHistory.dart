@@ -40,7 +40,7 @@ class _paymentHistorytate extends State<paymentHistory> {
       child: Column(
         children: [
           Card(
-            color:Color.fromARGB(255, 232, 232, 239),
+            color: Color.fromARGB(255, 232, 232, 239),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
             elevation: 10,
@@ -85,7 +85,26 @@ class _paymentHistorytate extends State<paymentHistory> {
                   fontSize: 20),
             ),
           ),
+          SizedBox(height: 10,) , 
           myTable(),
+          Align(
+              alignment: Alignment.bottomRight,
+              child: Text.rich(
+                TextSpan(
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: 'Scroll Horizontally',
+                    ),
+                    WidgetSpan(
+                      child: Icon(Icons.forward),
+                    ),
+                  
+                  ],
+                ),
+              )),
         ],
       ),
     );
@@ -101,34 +120,43 @@ class _paymentHistorytate extends State<paymentHistory> {
             return Center(child: new Text('Loading...'));
           default:
             return SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: DataTable(
-                columnSpacing: 10,
-                dataRowHeight: 60,
-                headingRowHeight: 100,
-                horizontalMargin: 10,
-                columns: <DataColumn>[
-                  DataColumn(label: mystyle("Total Fees")),
-                  DataColumn(label: mystyle("Fees Paid by std")),
-                  DataColumn(label: mystyle('1st Installment')),
-                  DataColumn(label: mystyle('2nd Installment')),
-                  DataColumn(label: mystyle('Balance')),
-                ],
-                rows: (snapshot.data! as QuerySnapshot)
-                    .docs
-                    .map((DocumentSnapshot document) {
-                  return DataRow(
-                    cells: <DataCell>[
-                      DataCell(mystyle(document["total"])),
-                      DataCell(mystyle(document["feestu"])),
-                      DataCell(mystyle(document["mahadbt1"])),
-                      DataCell(mystyle(document["mahadbt2"])),
-                      DataCell(mystyle(document["balance"])),
-                    ],
-                  );
-                }).toList(),
-              ),
-            );
+                scrollDirection: Axis.horizontal,
+                child: Column(
+                  children: [
+                    DataTable(
+                     checkboxHorizontalMargin: 20,
+                      
+                      columnSpacing: 20,
+                      dataRowHeight: 60,
+                      headingRowHeight: 60,
+                      horizontalMargin: 25,
+                      columns: <DataColumn>[
+                        DataColumn(label: mystyle1("Total Fees"   )  ) , 
+                        DataColumn(label: mystyle1("Fees Paid \nby student")),
+                        DataColumn(label: mystyle1('1st Installment' )),
+                        DataColumn(label: mystyle1('2nd Installment')),
+                        DataColumn(label: mystyle1('Balance')),
+                        DataColumn(label: mystyle1('Status')),
+                      ],
+                      rows: (snapshot.data! as QuerySnapshot)
+                          .docs
+                          .map((DocumentSnapshot document) {
+                        return DataRow(
+                          
+                          cells: <DataCell>[
+                            
+                            DataCell(Container(child: mystyle(document["total"] , 2)) , ),
+                            DataCell(mystyle(document["feestu"] , 2)),
+                            DataCell(mystyle(document["mahadbt1"] , 2)),
+                            DataCell(mystyle(document["mahadbt2"], 2)),
+                            DataCell(mystyle(document["balance"],  int.parse(document["balance"]) > 0 ? 1 : 0) ),
+                            DataCell(mystyle(document["status"] , document["status"] == "approved" ? 0 : 1 )),
+                          ],
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ));
         }
       },
     );
@@ -146,11 +174,28 @@ class _paymentHistorytate extends State<paymentHistory> {
       ),
     );
   }
+  
+  Widget mystyle(String txt , int value ) {
 
-  Widget mystyle(String txt) {
-    return Text(txt,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15));
+    if(value == 1 ){
+      return Text(txt,
+        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13 , color: Colors.red)) ; 
+    }
+    else if (value == 0){
+        return   Text(txt,
+        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13 , color: Colors.green));
+    }
+    else{
+      return Text(txt,
+        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13 , color: Colors.black));
+    }
+   
   }
+}
+
+Widget mystyle1 (String txt){
+    return  Text(txt,
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15 , color: Colors.black));
 }
 
 

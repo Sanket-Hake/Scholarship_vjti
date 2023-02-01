@@ -7,6 +7,7 @@ import 'package:scholarship_vjti/widgets/marque.dart';
 import 'package:scholarship_vjti/widgets/myAppBar.dart';
 import '../AllSchemes/tab.dart';
 import '../Documents/required.dart';
+import '../download/pdfViewer.dart';
 import 'drawer.dart';
 
 class HomeMain extends StatefulWidget {
@@ -30,6 +31,21 @@ class _HomeMainState extends State<HomeMain> {
             bottomRight: Radius.circular(20),
           ),
         ),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 15.0),
+            child: IconButton(
+              icon: Icon(Icons.notifications_none),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NMain(),
+                    ));
+              },
+            ),
+          ),
+        ],
       ),
       drawer: MainDrawer(),
       body: FadeInDownBig(
@@ -50,12 +66,16 @@ class _HomeMainState extends State<HomeMain> {
                   height: 20,
                 ),
                 Card(
+                  elevation: 20,
                   color: Color.fromARGB(255, 232, 232, 239),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30)),
                   // elevation: 40,
                   child: Column(
                     children: [
+                      SizedBox(
+                        height: 20,
+                      ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
@@ -91,9 +111,27 @@ class _HomeMainState extends State<HomeMain> {
                                 child: column("assets/images/diagram.png",
                                     "All Schemes", context),
                               ),
-                            )
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: InkWell(
+                                child: column("assets/images/form.png",
+                                    "Forms", context),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PDFViewer(),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                           ],
                         ),
+                      ),
+                      SizedBox(
+                        height: 8,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -104,16 +142,22 @@ class _HomeMainState extends State<HomeMain> {
                             Expanded(
                               flex: 1,
                               child: InkWell(
-                                child: column("assets/images/notice.png",
-                                    "Important Notice", context),
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => NMain(),
-                                    ),
-                                  );
+                                  Navigator.pushNamed(
+                                      context, '/paymentHistory');
                                 },
+                                child: column("assets/images/history_icon.png",
+                                    "Payment", context),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, "/MySchemes");
+                                },
+                                child: column("assets/images/planning.png",
+                                    "MySchemes", context),
                               ),
                             ),
                             Expanded(
@@ -134,40 +178,11 @@ class _HomeMainState extends State<HomeMain> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, '/paymentHistory');
-                                },
-                                child: column("assets/images/history_icon.png",
-                                    "Payment History", context),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(context, "/MySchemes");
-                                },
-                                child: column("assets/images/planning.png",
-                                    "Eligible Schemes", context),
-                              ),
-                            ),
-                          ],
-                        ),
+                      SizedBox(
+                        height: 20,
                       ),
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: 20,
                 ),
               ],
             ),
@@ -180,25 +195,35 @@ class _HomeMainState extends State<HomeMain> {
   Widget column(String image, String text, BuildContext context) {
     return Container(
       child: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            margin:
-                const EdgeInsets.only(right: 10, left: 10, top: 10, bottom: 10),
-            width: MediaQuery.of(context).size.width / 4,
-            height: 80,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              image: DecorationImage(
-                  image: AssetImage(image), fit: BoxFit.contain),
-            ),
+            height: 60,
+            width: MediaQuery.of(context).size.width / 2,
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Image(image: AssetImage(image))),
           ),
+          SizedBox(height: 3,), 
+          // Container(
+          //   margin:
+          //       const EsssdgeInsets.only(right: 10, left: 10, top: 10, bottom: 10),
+          //   width: MediaQuery.of(context).size.width / 4,
+          //   height: 80,
+          //   decoration: BoxDecoration(
+          //     color: Colors.white,
+          //     borderRadius: BorderRadius.circular(20),
+          //     image: DecorationImage(
+          //         image: AssetImage(image), fit: BoxFit.contain),
+          //   ),
+          // ),
           Text(
             text,
             style: const TextStyle(
                 color: Color.fromARGB(255, 76, 76, 175),
                 fontWeight: FontWeight.w600,
-                fontSize: 17),
+                fontSize: 15),
           ),
         ],
       ),

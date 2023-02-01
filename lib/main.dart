@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,24 +8,26 @@ import 'package:scholarship_vjti/AllSchemes/eligible_Schemes.dart';
 import 'package:scholarship_vjti/Home/home_main.dart';
 import 'package:scholarship_vjti/Payment_history/pHistory.dart';
 import 'package:scholarship_vjti/about/info.dart';
+import 'package:scholarship_vjti/pdf_generate/second.dart';
 import 'Authentication/login.dart';
 import 'Authentication/registartion.dart';
 import 'Details/form1.dart';
-import 'No_use/History/dummy.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'download/dummy.dart';
+import 'download/pdfViewer.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 
-FirebaseMessaging messaging = FirebaseMessaging.instance;
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp();
+// FirebaseMessaging messaging = FirebaseMessaging.instance;
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   // If you're going to use other Firebase services in the background, such as Firestore,
+//   // make sure you call `initializeApp` before using other Firebase services.
+//   await Firebase.initializeApp();
 
-  print("Handling a background message: ${message.messageId}");
-}
+//   print("Handling a background message: ${message.messageId}");
+// }
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  //FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await Firebase.initializeApp();
   runApp(MyApp());
 }
@@ -45,7 +48,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         "/register": (context) => RegisterPage(),
-        // "/AboutPage": (context) => AboutPage(),
+        
         '/paymentHistory': (context) => paymentHistory(),
         "/MySchemes": (context) => MySchemes(),
       },

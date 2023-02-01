@@ -82,9 +82,9 @@ class _secondState extends State<second> {
   @override
   TextEditingController registrationID = TextEditingController();
 
-  TextEditingController caste_info = TextEditingController();
+  // TextEditingController caste_info = TextEditingController();
 
-  TextEditingController income = TextEditingController();
+  // TextEditingController income = TextEditingController();
 
   TextEditingController appliedScheme = TextEditingController();
 
@@ -100,11 +100,11 @@ class _secondState extends State<second> {
       FirebaseFirestore.instance.collection('student');
   addStudent() {
     studentToAdd = {
-      'caste_info': caste_info.text,
+      // 'caste_info': caste_info.text,
       'appliedScheme': appliedScheme.text,
       'scholarshipID': scholarshipID.text,
       'financialYear': financialYear.text,
-      'Income': income.text,
+      // 'Income': income.text,
     };
     print(_auth.currentUser!.uid);
 
@@ -151,40 +151,40 @@ class _secondState extends State<second> {
                     // SizedBox(
                     //   height: 20,
                     // ),
-                    myTextField(
-                      controller: caste_info,
-                      hintTxt: "Enter Your Caste",
-                      labelTxt: "Caste",
-                      myIcon: Icon(
-                        Icons.person,
-                        color: Color.fromARGB(255, 97, 49, 218),
-                      ),
-                      textInputType: TextInputType.text,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your caste';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    myTextField(
-                      controller: income,
-                      hintTxt: "Enter your family income",
-                      labelTxt: "Family Income",
-                      myIcon: Icon(
-                        Icons.currency_rupee,
-                        color: Color.fromARGB(255, 97, 49, 218),
-                      ),
-                      textInputType: TextInputType.phone,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'please Enter your family income';
-                        }
-                      },
-                    ),
+                    // myTextField(
+                    //   controller: caste_info,
+                    //   hintTxt: "Enter Your Caste",
+                    //   labelTxt: "Caste",
+                    //   myIcon: Icon(
+                    //     Icons.person,
+                    //     color: Color.fromARGB(255, 97, 49, 218),
+                    //   ),
+                    //   textInputType: TextInputType.text,
+                    //   validator: (value) {
+                    //     if (value!.isEmpty) {
+                    //       return 'Please enter your caste';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
+                    // myTextField(
+                    //   controller: income,
+                    //   hintTxt: "Enter your family income",
+                    //   labelTxt: "Family Income",
+                    //   myIcon: Icon(
+                    //     Icons.currency_rupee,
+                    //     color: Color.fromARGB(255, 97, 49, 218),
+                    //   ),
+                    //   textInputType: TextInputType.phone,
+                    //   validator: (value) {
+                    //     if (value!.isEmpty) {
+                    //       return 'please Enter your family income';
+                    //     }
+                    //   },
+                    // ),
                     SizedBox(
                       height: 20,
                     ),

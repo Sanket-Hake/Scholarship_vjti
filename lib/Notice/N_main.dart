@@ -40,20 +40,17 @@ class _NMainState extends State<NMain> {
                         InkWell(
                           onTap: () {},
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 10  , right: 10 , top: 5 , bottom: 5),
-                            child: Container(
-                              
-                              child:index < Value.length ? ListTile(
-                                              tileColor: Color.fromARGB(255, 239, 236, 236),
-                                              shape: RoundedRectangleBorder(
-                                                
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              title:
-                                                  Text(Value[index]["message"] ,style: TextStyle(color: Colors.red , fontWeight: FontWeight.bold),),
-                                            ): Container(),
-                            ),
+                            padding: const EdgeInsets.only(left: 10  , right: 10 , top: 7 , bottom: 7),
+                            child: index < Value.length ? ListTile(
+                                            tileColor: Color.fromARGB(255, 239, 236, 236),
+                                            shape: RoundedRectangleBorder(
+                                              
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            title:
+                                                Text(Value[index]["message"] ,style: TextStyle(color: Colors.red , fontWeight: FontWeight.bold),),
+                                          ): Container(),
                           ),
                         ),
                       ],
