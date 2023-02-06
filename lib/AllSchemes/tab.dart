@@ -34,7 +34,7 @@ class _main_activityState extends State<main_activity> with SingleTickerProvider
         bottom: TabBar(isScrollable: true, controller: _controller, tabs: [
           Tab(text: " State"),
           Tab(text: "Central"),
-          Tab(text: "Institution"),
+          Tab(text: "institute"),
         ]),
       ),
       body: TabBarView(
@@ -42,7 +42,7 @@ class _main_activityState extends State<main_activity> with SingleTickerProvider
         children: <Widget>[
           schemes(type: "state",),
            schemes(type: "central",),
-              schemes(type: "institution",),
+              schemes(type: "institute",),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:scholarship_vjti/widgets/myAppBar.dart';
 import 'package:scholarship_vjti/widgets/theme.dart';
@@ -19,6 +20,23 @@ class _NMainState extends State<NMain> {
       padding: const EdgeInsets.all(10.0),
       child: notices(),
     ));
+  }
+
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  String _message = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _firebaseMessaging.getToken().then((token) {
+      print("Firebase Messaging Token: $token");
+    });
+    _firebaseMessaging.subscribeToTopic('all');
+    FirebaseMessaging.onMessage.listen((message) {
+      setState(() {
+         _message = message.notification!.body!;
+      });
+    });
   }
 
   Widget notices() {

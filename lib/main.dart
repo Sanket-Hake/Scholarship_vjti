@@ -1,21 +1,22 @@
-import 'package:flutter/material.dart';
-
-import 'package:google_fonts/google_fonts.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:scholarship_vjti/Details/form2.dart';
-import 'package:scholarship_vjti/AllSchemes/eligible_Schemes.dart';
-import 'package:scholarship_vjti/Home/home_main.dart';
-import 'package:scholarship_vjti/Payment_history/pHistory.dart';
-import 'package:scholarship_vjti/about/info.dart';
-import 'package:scholarship_vjti/pdf_generate/second.dart';
-import 'Authentication/login.dart';
-import 'Authentication/registartion.dart';
-import 'Details/form1.dart';
-import 'download/dummy.dart';
-import 'download/pdfViewer.dart';
-// import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:scholarship_vjti/Authentication/login.dart';
+import 'package:scholarship_vjti/download/pdfViewer.dart';
 
+import 'AllSchemes/eligible_Schemes.dart';
+import 'Authentication/registartion.dart';
+import 'Payment_history/pHistory.dart';
+import 'download/x.dart';
+import 'download/y.dart';
+
+
+
+Future<void> backgroundHandler(RemoteMessage message) async {
+  	print(message.data.toString());
+ 	print(message.notification!.title);
+}
 // FirebaseMessaging messaging = FirebaseMessaging.instance;
 // Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 //   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -27,8 +28,10 @@ import 'download/pdfViewer.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  
   await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  // LocalNotificationService.initialize();
   runApp(MyApp());
 }
 
@@ -46,9 +49,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginPage(),
+        '/': (context) =>LoginPage(),
         "/register": (context) => RegisterPage(),
-        
         '/paymentHistory': (context) => paymentHistory(),
         "/MySchemes": (context) => MySchemes(),
       },

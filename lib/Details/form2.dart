@@ -11,7 +11,7 @@ import 'package:scholarship_vjti/widgets/textField.dart';
 import '../widgets/myButton.dart';
 import '../widgets/myDropDown.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class second extends StatefulWidget {
   @override
@@ -21,20 +21,19 @@ class second extends StatefulWidget {
 class _secondState extends State<second> {
   @override
   void initState() {
-    // TODO: implement initState
-    getData();
+    // getData();
     super.initState();
   }
 
   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  void getData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      registrationID =
-          prefs.getString('registrationID') as TextEditingController;
-    });
-  }
+  // void getData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     registrationID =
+  //         prefs.getString('registrationID') as TextEditingController;
+  //   });
+  // }
 
   void _processData() {
     // Process your data and upload to server
@@ -131,60 +130,6 @@ class _secondState extends State<second> {
                     SizedBox(
                       height: 20,
                     ),
-                    // myTextField(
-                    //   controller: registrationID,
-                    //   hintTxt: "Enter College Registration ID",
-                    //   labelTxt: "Registartion ID",
-                    //   myIcon: Icon(
-                    //     Icons.account_circle,
-                    //     color: Color.fromARGB(255, 97, 49, 218),
-                    //   ),
-                    //   textInputType: TextInputType.number,
-                    //   validator: (value) {
-                    //     if (value!.isEmpty) {
-                    //       return 'Enter Registration ID';
-                    //     } else if (value.length != 9) {
-                    //       return 'Enter 10 digit registration no.';
-                    //     }
-                    //   },
-                    // ),
-                    // SizedBox(
-                    //   height: 20,
-                    // ),
-                    // myTextField(
-                    //   controller: caste_info,
-                    //   hintTxt: "Enter Your Caste",
-                    //   labelTxt: "Caste",
-                    //   myIcon: Icon(
-                    //     Icons.person,
-                    //     color: Color.fromARGB(255, 97, 49, 218),
-                    //   ),
-                    //   textInputType: TextInputType.text,
-                    //   validator: (value) {
-                    //     if (value!.isEmpty) {
-                    //       return 'Please enter your caste';
-                    //     }
-                    //     return null;
-                    //   },
-                    // ),
-                    // SizedBox(
-                    //   height: 20,
-                    // ),
-                    // myTextField(
-                    //   controller: income,
-                    //   hintTxt: "Enter your family income",
-                    //   labelTxt: "Family Income",
-                    //   myIcon: Icon(
-                    //     Icons.currency_rupee,
-                    //     color: Color.fromARGB(255, 97, 49, 218),
-                    //   ),
-                    //   textInputType: TextInputType.phone,
-                    //   validator: (value) {
-                    //     if (value!.isEmpty) {
-                    //       return 'please Enter your family income';
-                    //     }
-                    //   },
-                    // ),
                     SizedBox(
                       height: 20,
                     ),

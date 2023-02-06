@@ -112,21 +112,21 @@ class MainDrawer extends StatelessWidget {
               ),
             ),
            
-            InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, "/fetch");
-              },
-              child: ListTile(
-                leading: Icon(Icons.account_box_rounded),
-                tileColor: Colors.blue[200],
-                title: Text(
-                  "History",
-                  style: TextStyle(
-                    fontSize: 17,
-                  ),
-                ),
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.pushNamed(context, "/fetch");
+            //   },
+            //   child: ListTile(
+            //     leading: Icon(Icons.account_box_rounded),
+            //     tileColor: Colors.blue[200],
+            //     title: Text(
+            //       "History",
+            //       style: TextStyle(
+            //         fontSize: 17,
+            //       ),
+            //     ),
+            //   ),
+            // ),
            
 
             InkWell(

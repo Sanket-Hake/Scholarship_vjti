@@ -1,13 +1,17 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:scholarship_vjti/Details/form2.dart';
+import 'package:scholarship_vjti/Home/slide.dart';
 import 'package:scholarship_vjti/Home/slider.dart';
 import 'package:scholarship_vjti/Notice/N_main.dart';
 import 'package:scholarship_vjti/widgets/marque.dart';
 import 'package:scholarship_vjti/widgets/myAppBar.dart';
 import '../AllSchemes/tab.dart';
 import '../Documents/required.dart';
+import '../Notice/notification.dart';
 import '../download/pdfViewer.dart';
+import '../downloads_ritish/download.dart';
 import 'drawer.dart';
 
 class HomeMain extends StatefulWidget {
@@ -18,6 +22,29 @@ class HomeMain extends StatefulWidget {
 }
 
 class _HomeMainState extends State<HomeMain> {
+  List<String> _imageUrls = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadImageUrls();
+  }  
+   Future<void> _loadImageUrls() async {
+  final storageRef = FirebaseStorage.instance.ref().child("sliderImages");
+  final items = await storageRef.listAll();
+  print(items);
+  for (var item in items.items) {
+    try {
+      final url = await item.getDownloadURL();
+      setState(() {
+        _imageUrls.add(url.toString());
+        print(_imageUrls);
+      });
+    } catch (e) {
+      print("Error getting URL: $e");
+    }
+  }
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,30 +75,26 @@ class _HomeMainState extends State<HomeMain> {
         ],
       ),
       drawer: MainDrawer(),
-      body: FadeInDownBig(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Marque(),
-                SizedBox(
-                  height: 10,
-                ),
-                slider(),
-                SizedBox(
-                  height: 20,
-                ),
-                Card(
-                  elevation: 20,
-                  color: Color.fromARGB(255, 232, 232, 239),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  // elevation: 40,
-                  child: Column(
+      body: RefreshIndicator(
+        onRefresh: () async{ await _loadImageUrls(); },
+        child: FadeInDownBig(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Marque(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  slider(imageUrls: _imageUrls,),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Column(
                     children: [
                       SizedBox(
                         height: 20,
@@ -115,13 +138,13 @@ class _HomeMainState extends State<HomeMain> {
                             Expanded(
                               flex: 1,
                               child: InkWell(
-                                child: column("assets/images/form.png",
-                                    "Forms", context),
+                                child: column(
+                                    "assets/images/form.png", "Forms", context),
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => PDFViewer(),
+                                      builder: (context) => MainPage(),
                                     ),
                                   );
                                 },
@@ -143,8 +166,7 @@ class _HomeMainState extends State<HomeMain> {
                               flex: 1,
                               child: InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(
-                                      context, '/paymentHistory');
+                                  Navigator.pushNamed(context, '/paymentHistory');
                                 },
                                 child: column("assets/images/history_icon.png",
                                     "Payment", context),
@@ -183,8 +205,8 @@ class _HomeMainState extends State<HomeMain> {
                       ),
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -199,13 +221,15 @@ class _HomeMainState extends State<HomeMain> {
         // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: 60,
+            height: 70,
             width: MediaQuery.of(context).size.width / 2,
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: Image(image: AssetImage(image))),
           ),
-          SizedBox(height: 3,), 
+          SizedBox(
+            height: 3,
+          ),
           // Container(
           //   margin:
           //       const EsssdgeInsets.only(right: 10, left: 10, top: 10, bottom: 10),

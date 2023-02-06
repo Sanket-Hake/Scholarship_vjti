@@ -15,7 +15,7 @@ class MySchemes extends StatefulWidget {
 class _MySchemesState extends State<MySchemes> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   String categoryValue = 'OPEN';
-  // String incomeValue = 'Upto Rs 8,00,000';
+
   List<String> category = <String>[
     'OPEN',
     'Minority(Muslim, Sikh, Christian, Buddhist, Parsi, Jain & Jew)',
@@ -29,17 +29,9 @@ class _MySchemesState extends State<MySchemes> {
     'Only Physically Handicapped',
     'AMS Students',
   ];
-  // List<String> income = <String>[
-  //   'Upto Rs 8,00,000',
-  //   'Upto Rs 2,50,000',
-  //   'Above Rs 2,50,001',
-  //   'Upto Rs 1,50,000',
-  //   'Rs 1,50,001 to Rs 8,00,000',
-  //   'No income limit',
-  // ];
 
   bool sank = false;
-  late num income ;
+  late num income;
   // TextEditingController incomedetail = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -69,7 +61,9 @@ class _MySchemesState extends State<MySchemes> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Headings(title: 'Category'),
-                                  SizedBox(height: 15,) , 
+                                  SizedBox(
+                                    height: 15,
+                                  ),
                                   DropdownButton(
                                       value: categoryValue,
                                       style: TextStyle(
@@ -99,11 +93,9 @@ class _MySchemesState extends State<MySchemes> {
                                 children: [
                                   Headings(title: 'Income'),
                                   TextField(
-                                   
                                     onChanged: (value) {
                                       setState(() {
                                         income = int.parse(value);
-
                                       });
                                     },
                                   ),
@@ -112,7 +104,6 @@ class _MySchemesState extends State<MySchemes> {
                             ),
                           ],
                         ),
-                    
                         SizedBox(
                           height: 20,
                         ),
@@ -161,24 +152,11 @@ class _MySchemesState extends State<MySchemes> {
                   itemCount: Value.length,
                   itemBuilder: (BuildContext context, int index) {
                     if (Value[index]["category"].contains(categoryValue) &&
-                        Value[index]["income"] >= income) {
+                        int.parse(Value[index]["income"]) >= income) {
                       return Stack(
                         children: <Widget>[
                           InkWell(
-                            onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => ProductDetailPage(
-                              //       ProductImage: Value[index]["ProductImage"],
-                              //       Cost: Value[index]["Cost"],
-                              //       productName: Value[index]["Product Name"],
-                              //       dis: Value[index]["dis"],
-                              //       ShopName: Shop,
-                              //     ),
-                              //   ),
-                              // );
-                            },
+                            onTap: () {},
                             child: Container(
                               margin:
                                   EdgeInsets.only(left: 16, right: 16, top: 16),
