@@ -1,9 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 import '../widgets/myAppBar.dart';
-import '../widgets/textField.dart';
-
+import 'package:flutter/services.dart';
+import 'package:pdf/widgets.dart' as pw;
 class paymentHistory extends StatefulWidget {
   const paymentHistory({super.key});
 
@@ -14,23 +16,73 @@ class paymentHistory extends StatefulWidget {
 class _paymentHistorytate extends State<paymentHistory> {
   final List<String> list = [];
 
-  TextEditingController regId = TextEditingController();
-  TextEditingController sid = TextEditingController();
+  // TextEditingController regId = TextEditingController();
+  // TextEditingController sid = TextEditingController();
   FirebaseFirestore db = FirebaseFirestore.instance;
   bool sank = false;
 
+  final GlobalKey<State<StatefulWidget>> _printKey = GlobalKey();
+
+  void _printScreen() {
+    Printing.layoutPdf(onLayout: (PdfPageFormat format) async {
+      final doc = pw.Document();
+
+      final image = await WidgetWraper.fromKey(key: _printKey);
+
+      doc.addPage(pw.Page(
+          pageFormat: format,
+          build: (pw.Context context) {
+            return pw.Center(
+              child: pw.Expanded(
+                child: pw.Image(image),
+              ),
+            );
+          }));
+
+      return doc.save();
+    });
+  }
+  void initState(){
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      // DeviceOrientation.landscapeRight,
+      // DeviceOrientation.landscapeLeft,
+    ]);
+  }
+  @override
+  dispose(){
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    super.dispose();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
         title: "Payment History",
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            hitory_payment(),
-          ],
+      body:
+        SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+              RepaintBoundary(
+              key: _printKey,
+                child: hitory_payment(),
+              )
+              ],
+            ),
+          ),
         ),
+
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepPurple,
+        child: const Icon(Icons.print, ),
+        onPressed: _printScreen,
       ),
     );
   }
@@ -87,24 +139,7 @@ class _paymentHistorytate extends State<paymentHistory> {
           ),
           SizedBox(height: 10,) , 
           myTable(),
-          Align(
-              alignment: Alignment.bottomRight,
-              child: Text.rich(
-                TextSpan(
-                  style: TextStyle(
-                    fontSize: 15,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: 'Scroll Horizontally',
-                    ),
-                    WidgetSpan(
-                      child: Icon(Icons.forward),
-                    ),
-                  
-                  ],
-                ),
-              )),
+          
         ],
       ),
     );

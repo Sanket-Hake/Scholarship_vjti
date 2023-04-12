@@ -41,15 +41,7 @@ link(Reference ref) async {
                   itemBuilder: (context, index) {
                     final file = files[index];
                     final url = link(file) ;
-                    return Image(image: NetworkImage(url));
-                    // return ListTile(
-                    //   title: Text("${file.name}"),
-                    //   trailing: IconButton(
-                    //       onPressed: () {
-                    //         downloadFile(file);
-                    //       },
-                    //       icon: Icon(Icons.download)),
-                    // );
+               
                   });
             } else if (snapshot.hasError) {
               return Text("Error Occured");

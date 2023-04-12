@@ -38,21 +38,3 @@ class myTextField extends StatelessWidget {
   }
 }
 
-
-//  Padding(
-//                 padding: const EdgeInsets.all(8.0),
-//                 child: ClipRect(
-//                               child: Container(
-//                                 width: 20,
-//                                 height:20,
-//                                 decoration: BoxDecoration(
-//                                   shape: BoxShape.circle,
-//                                   color: Colors.white,
-//                                   image: DecorationImage(
-//                                     image: AssetImage("assets/images/history.png"), 
-//                                     fit: BoxFit.contain,
-//                                   ),
-//                                 ),
-//                               ),
-//                             ),
-//               ),

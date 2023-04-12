@@ -28,23 +28,25 @@ class _HomeMainState extends State<HomeMain> {
   void initState() {
     super.initState();
     _loadImageUrls();
-  }  
-   Future<void> _loadImageUrls() async {
-  final storageRef = FirebaseStorage.instance.ref().child("sliderImages");
-  final items = await storageRef.listAll();
-  print(items);
-  for (var item in items.items) {
-    try {
-      final url = await item.getDownloadURL();
-      setState(() {
-        _imageUrls.add(url.toString());
-        print(_imageUrls);
-      });
-    } catch (e) {
-      print("Error getting URL: $e");
+  }
+
+  Future<void> _loadImageUrls() async {
+    final storageRef = FirebaseStorage.instance.ref().child("sliderImages");
+    final items = await storageRef.listAll();
+    print(items);
+    for (var item in items.items) {
+      try {
+        final url = await item.getDownloadURL();
+        setState(() {
+          _imageUrls.add(url.toString());
+          print(_imageUrls);
+        });
+      } catch (e) {
+        print("Error getting URL: $e");
+      }
     }
   }
-}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,26 +77,32 @@ class _HomeMainState extends State<HomeMain> {
         ],
       ),
       drawer: MainDrawer(),
-      body: RefreshIndicator(
-        onRefresh: () async{ await _loadImageUrls(); },
-        child: FadeInDownBig(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Marque(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  slider(imageUrls: _imageUrls,),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Column(
+      body: FadeInDownBig(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                Marque(),
+                SizedBox(
+                  height: 10,
+                ),
+                slider(
+                  imageUrls: _imageUrls,
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Card(
+                  color: Color.fromARGB(255, 232, 232, 239),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  elevation: 10,
+                  shadowColor: Colors.grey[300],
+                  child: Column(
                     children: [
                       SizedBox(
                         height: 20,
@@ -166,7 +174,8 @@ class _HomeMainState extends State<HomeMain> {
                               flex: 1,
                               child: InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/paymentHistory');
+                                  Navigator.pushNamed(
+                                      context, '/paymentHistory');
                                 },
                                 child: column("assets/images/history_icon.png",
                                     "Payment", context),
@@ -205,8 +214,8 @@ class _HomeMainState extends State<HomeMain> {
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
